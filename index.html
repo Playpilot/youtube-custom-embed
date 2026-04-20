@@ -3,6 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+
+  <script src="https://unpkg.com/plyr@3"></script>
+  <link rel="stylesheet" href="https://unpkg.com/plyr@3/dist/plyr.css" />
 
   <style>
     * {
@@ -17,8 +21,25 @@
       overflow: hidden;
       background: #000;
     }
+
+    #player,
+    .plyr {
+      height: 100%;
+      width: 100%;
+    }
   </style>
 </head>
 
 <body>
+  <div id="player" data-plyr-provider="youtube" data-plyr-embed-id="bTqVqk7FSmY"></div>
+
+  <script>
+    const player = new Plyr('#player', {
+      controls: [],
+      playsinline: true,
+      autoplay: true,
+      muted: true,
+      youtube: { noCookie: true }
+    })
+  </script>
 </body>
