@@ -31,14 +31,19 @@
 </head>
 
 <body>
-  <div id="player" data-plyr-provider="youtube" data-plyr-embed-id="bTqVqk7FSmY"></div>
+  <div id="player" data-plyr-provider="youtube" data-plyr-embed-id></div>
 
   <script>
-    const player = new Plyr('#player', {
+    const element = document.querySelector('#player')
+    const searchParams = new URL(document.location.href).searchParams
+
+    element.dataset.plyrEmbedId = searchParams.get('video_id')
+
+    const player = new Plyr(element, {
       controls: [],
-      playsinline: true,
-      autoplay: true,
-      muted: true,
+      playsinline: searchParams.get('playsinline') === 'true',
+      autoplay: searchParams.get('autoplay') === 'true',
+      muted: searchParams.get('muted') === 'true',
       youtube: { noCookie: true }
     })
   </script>
