@@ -40,7 +40,7 @@
     element.dataset.plyrEmbedId = searchParams.get('video_id')
 
     const player = new Plyr(element, {
-      controls: [],
+      controls: (searchParams.get('controls') || '').split(','),
       playsinline: searchParams.get('playsinline') === 'true',
       autoplay: searchParams.get('autoplay') === 'true',
       muted: searchParams.get('muted') === 'true',
