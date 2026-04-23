@@ -3,6 +3,53 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+
+  <script src="https://unpkg.com/plyr@3"></script>
+  <link rel="stylesheet" href="https://unpkg.com/plyr@3/dist/plyr.css" />
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #000;
+    }
+
+    #player,
+    .plyr {
+      --plyr-control-icon-size: 24px;
+      --plyr-video-controls-background: linear-gradient(rgba(0, 0, 0, 0), black);
+      --plyr-font-size-time: 16px;
+      --plyr-font-family: 'Consolas', monospace;
+      height: 100%;
+      width: 100%;
+    }
+  </style>
 </head>
+
 <body>
+  <div id="player" data-plyr-provider="youtube" data-plyr-embed-id></div>
+
+  <script>
+    const element = document.querySelector('#player')
+    const searchParams = new URL(document.location.href).searchParams
+
+    element.dataset.plyrEmbedId = searchParams.get('video_id')
+    element.style.setProperty('--plyr-color-main', searchParams.get('color') || '#fa548a')
+
+    const player = new Plyr(element, {
+      controls: (searchParams.get('controls') || '').split(','),
+      playsinline: searchParams.get('playsinline') === 'true',
+      autoplay: searchParams.get('autoplay') === 'true',
+      muted: searchParams.get('muted') === 'true',
+      youtube: { noCookie: true }
+    })
+  </script>
 </body>
