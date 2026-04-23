@@ -41,8 +41,10 @@
     const element = document.querySelector('#player')
     const searchParams = new URL(document.location.href).searchParams
 
+    console.log(searchParams)
+
     element.dataset.plyrEmbedId = searchParams.get('video_id')
-    element.style.setProperty('--plyr-color-main', searchParams.get('color') || '#fa548a')
+    element.style.setProperty('--plyr-color-main', '#' + (searchParams.get('color') || 'fa548a'))
 
     const player = new Plyr(element, {
       controls: (searchParams.get('controls') || '').split(','),
