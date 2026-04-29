@@ -52,5 +52,11 @@
       muted: searchParams.get('muted') === 'true',
       youtube: { noCookie: true }
     })
+
+    if (searchParams.get('loop') === 'true') {
+      player.on('statechange', event => {
+        if (event.detail.code === 0) requestAnimationFrame(() => player.play())
+      })
+    }
   </script>
 </body>
