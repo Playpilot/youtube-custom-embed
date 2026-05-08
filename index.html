@@ -39,24 +39,26 @@
   <div id="player" data-plyr-provider="youtube" data-plyr-embed-id></div>
 
   <script>
-    const element = document.querySelector('#player')
-    const searchParams = new URL(document.location.href).searchParams
+    if (typeof Plyr !== 'undefined') {
+      const element = document.querySelector('#player')
+      const searchParams = new URL(document.location.href).searchParams
 
-    element.dataset.plyrEmbedId = searchParams.get('video_id')
-    element.style.setProperty('--plyr-color-main', '#' + (searchParams.get('color') || 'fa548a'))
+      element.dataset.plyrEmbedId = searchParams.get('video_id')
+      element.style.setProperty('--plyr-color-main', '#' + (searchParams.get('color') || 'fa548a'))
 
-    const player = new Plyr(element, {
-      controls: (searchParams.get('controls') || '').split(','),
-      playsinline: searchParams.get('playsinline') === 'true',
-      autoplay: searchParams.get('autoplay') === 'true',
-      muted: searchParams.get('muted') === 'true',
-      youtube: { noCookie: true }
-    })
-
-    if (searchParams.get('loop') === 'true') {
-      player.on('statechange', event => {
-        if (event.detail.code === 0) requestAnimationFrame(() => player.play())
+      const player = new Plyr(element, {
+        controls: (searchParams.get('controls') || '').split(','),
+        playsinline: searchParams.get('playsinline') === 'true',
+        autoplay: searchParams.get('autoplay') === 'true',
+        muted: searchParams.get('muted') === 'true',
+        youtube: { noCookie: true }
       })
+
+      if (searchParams.get('loop') === 'true') {
+        player.on('statechange', event => {
+          if (event.detail.code === 0) requestAnimationFrame(() => player.play())
+        })
+      }
     }
   </script>
 </body>
