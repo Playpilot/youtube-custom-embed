@@ -64,8 +64,12 @@
         })
       }
 
-      window.addEventListener("mute", () => {
-        player.muted = !player.muted
+      player.volume = searchParams.get('muted') === 'true' ? 0 : 1,
+
+      window.addEventListener('message', event => {
+        if (event.data === 'mute') {
+          player.volume = (player.muted || player.volume === 0) ? 1 : 0
+        }
       })
     }
   </script>
