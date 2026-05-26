@@ -58,13 +58,15 @@
         },
       })
 
+      player.on('ready', event => {
+        player.volume = player.muted ? 0 : 1
+      })
+
       if (searchParams.get('loop') === 'true') {
         player.on('statechange', event => {
           if (event.detail.code === 0) requestAnimationFrame(() => player.play())
         })
       }
-
-      player.volume = searchParams.get('muted') === 'true' ? 0 : 1,
 
       window.addEventListener('message', event => {
         if (event.data === 'mute') {
