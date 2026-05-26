@@ -51,7 +51,11 @@
         playsinline: searchParams.get('playsinline') === 'true',
         autoplay: searchParams.get('autoplay') === 'true',
         muted: searchParams.get('muted') === 'true',
-        youtube: { noCookie: true }
+        youtube: {
+          noCookie: true,
+          cc_load_policy: searchParams.get('captions') === 'true' ? 1 : 0,
+          cc_lang_pref: 'auto',
+        },
       })
 
       if (searchParams.get('loop') === 'true') {
