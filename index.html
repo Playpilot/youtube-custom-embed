@@ -60,7 +60,7 @@
 
       player.on('ready', event => {
         player.volume = player.muted ? 0 : 1
-        player.currentTime = searchParams.get('start_time') || 0
+        player.currentTime = parseInt(searchParams.get('start_time') || '0')
       })
 
       if (searchParams.get('loop') === 'true') {
